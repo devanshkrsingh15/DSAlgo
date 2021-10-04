@@ -17,7 +17,7 @@ class TravellingSalesMan {
         System.out.println(mincost);
 
         
-        
+
     
 
     }
@@ -68,12 +68,6 @@ class TravellingSalesMan {
 
 
     //https://leetcode.com/problems/find-the-shortest-superstring/
-
-    public static String shortestSuperstring(String[] words) {
-        return "";
-    }
-
-
 
      
 }
