@@ -4,10 +4,12 @@ import java.util.*;
 public class ArrayMath{
 
     public static void main(String[] args) {
-       int[] A = {  1, 1, 1, 1 };
-       int B = 3;
-      int var=  MinimumLightstoActivate(A,B);
-      System.out.println(var);
+       int[] A = {   9, 9, 9, 9, 9  };
+      // int B = 3;
+     // int var=  MinimumLightstoActivate(A,B);
+      //System.out.println(var);
+      int[]ans=AddOneToNumber(A);
+      for(int ele:ans) System.out.print(ele + " ");
 
     }
 
@@ -99,5 +101,74 @@ public class ArrayMath{
 
     }
 
+    //https://www.interviewbit.com/problems/add-one-to-number/
+    public static int[] AddOneToNumber(int[]arr){
+        int n=arr.length;
+        ArrayList<Integer>list=new ArrayList<>();
+        int carr=1;
+        int idx=n-1;
+        while(idx>=0){
+            int lastdigit=arr[idx]+carr;
+            int tobeStored=lastdigit%10;
+            carr=lastdigit/10;
+            list.add(tobeStored);
+            idx--;
+        }
+        if(carr==1) list.add(carr);
+        Collections.reverse(list);
+        int ridx=0;
+        if(list.get(0)==0){
+            while(ridx<list.size() && list.get(ridx)==0) ridx++;
+        }
+        
+        ArrayList<Integer>ans=new ArrayList<>();
+        
+        for(int i=ridx;i<list.size();i++)ans.add(list.get(i));
+
+        int[]fans=new int[ans.size()];
+        int ptr=0;
+
+        for(int ele:ans) fans[ptr++]=ele;
+        
+
+
+
+        return fans;
+
+        
+    }
+
+    //https://www.interviewbit.com/problems/maximum-absolute-difference/
+    public static int maxArr(int[] A) {
+        int n=A.length;
+        int[]diff=new int[n];
+        int[]sum=new int[n];
+
+        for(int i=0;i<n;i++){
+            diff[i]=A[i]-(i+1);
+            sum[i]=A[i]+(i+1);
+        }
+
+        int minDiff=Integer.MAX_VALUE;
+        int minSum=Integer.MAX_VALUE;
+
+        int maxDiff=Integer.MIN_VALUE;
+        int maxSum=Integer.MIN_VALUE;
+
+        for(int i=0;i<n;i++){
+            minDiff=Math.min(minDiff,diff[i]);
+            minSum=Math.min(minSum,sum[i]);
+
+            maxDiff=Math.max(maxDiff,diff[i]);
+            maxSum=Math.max(maxSum,sum[i]);
+
+        }
+
+
+        return Math.max(maxDiff-minDiff,maxSum-minSum );
+    
+         
+       
+    }
     
 }

@@ -116,6 +116,8 @@ public class bits{
 			
 		}
 
+        scn.close();
+
 	}
 
     static class RPDandRapSheet{
