@@ -4,13 +4,10 @@ import java.util.*;
 public class ArrayMath{
 
     public static void main(String[] args) {
-       int[] A = {   9, 9, 9, 9, 9  };
-      // int B = 3;
-     // int var=  MinimumLightstoActivate(A,B);
-      //System.out.println(var);
-      int[]ans=AddOneToNumber(A);
-      for(int ele:ans) System.out.print(ele + " ");
-
+     //  int[] A = { 0,0,0,0,0,0,0,0,0 };
+     int[] A = { 1, 2, 3, 0, 3 };
+       int ans=solve(A.length,A);
+       System.out.println(ans);;
     }
 
    // https://www.interviewbit.com/problems/pick-from-both-sides/
@@ -171,4 +168,53 @@ public class ArrayMath{
        
     }
     
+
+    //https://www.interviewbit.com/problems/partitions/
+    
+    public int Partitions(int A, int[] arr) {
+        int n=arr.length;
+
+        int[]prefix=new int[n];
+        for(int i=0;i<n;i++){
+            if(i==0) prefix[i]=arr[i];
+            else prefix[i]=prefix[i-1]+arr[i];
+        }
+
+        if(prefix[n-1]%3!=0) return 0;
+
+        int[]suffix=new int[n];
+        for(int i=n-1;i>=0;i--){
+            if(i==n-1) suffix[i]=arr[i];
+            else suffix[i]=suffix[i+1]+arr[i];
+        }
+
+       // for(int ele:suffix) System.out.print(ele+" ");
+      //  System.out.println();
+        int[]cnt=new int[n];
+        for(int i=n-1;i>=0;i--){
+            if(suffix[i]==prefix[n-1]/3){
+                cnt[i]=1;
+            }
+        }
+
+      //  for(int ele:cnt) System.out.print(ele+" ");
+
+        for(int i=n-2;i>=0;i--){
+            cnt[i]+=cnt[i+1];
+        }
+
+
+        int count=0;
+
+        for(int i=0;i<n;i++){
+            if(prefix[i]==prefix[n-1]/3){
+                if(i+2<n)
+                count+=cnt[i+2];
+               // System.out.println( i + " "+cn);
+            }
+        }
+
+     //   System.out.println();
+        return count;
+    }
 }
