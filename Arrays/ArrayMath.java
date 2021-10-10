@@ -1,12 +1,14 @@
 package Arrays;
+import  java.lang.Iterable.*;
 import java.util.*;
+
 
 public class ArrayMath{
 
     public static void main(String[] args) {
      //  int[] A = { 0,0,0,0,0,0,0,0,0 };
      int[] A = { 1, 2, 3, 0, 3 };
-       int ans=solve(A.length,A);
+       int ans=Partitions(A.length,A);
        System.out.println(ans);;
     }
 
@@ -170,8 +172,7 @@ public class ArrayMath{
     
 
     //https://www.interviewbit.com/problems/partitions/
-    
-    public int Partitions(int A, int[] arr) {
+    public static int Partitions(int A, int[] arr) {
         int n=arr.length;
 
         int[]prefix=new int[n];
@@ -217,4 +218,97 @@ public class ArrayMath{
      //   System.out.println();
         return count;
     }
+
+
+
+    //https://www.interviewbit.com/problems/maximum-area-of-triangle/
+
+    public static int MaximumAreaofTriangle(String[] A) {
+        int n=A.length;
+        int m=A[0].length();
+        char[][]arr=new char[n][m];
+        HashMap<Character,HashMap<Integer,HashSet<Integer>>>hm=new HashMap<>();
+    
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                char ch=A[i].charAt(j);
+                arr[i][j]=ch;
+                hm.putIfAbsent(ch, new HashMap<>());
+                hm.get(ch).putIfAbsent(i, new HashSet<>()); //row
+                hm.get(ch).get(i).add(j); //corresponding cols
+            }
+        }
+
+
+        if(hm.size()!=3) return 0;
+        int maxSize=0;
+        
+
+
+
+        return maxSize;
+        
+    }
+
+    //https://www.interviewbit.com/problems/flip/
+    public static int[] Flip(String A){
+        /*
+
+        so basically we need to find range in which 
+        the number of 1s are max, in this range the char are toggled
+        => 1 to 0 and vice versa
+        Now we need to MAX( COUNT(0) - COUNT(1) )
+
+        we can do Kandanes in which 
+        0-> +1
+        1-> -1
+
+        as soon as we get -ve value we change the st pt
+        thus find new range if curr count > omax 
+
+        */
+
+        int n=A.length();
+
+        int left=-1;
+        int right=-1;
+        int omax=0;
+        int en=0;
+        int st=0;
+
+        int curr=0;
+        int os=0;
+        int zs=0;
+
+        while(en<n){
+            char ch=A.charAt(en);
+            if(ch=='0'){
+                curr++;
+                zs++;
+            } 
+            else if(ch=='1'){
+                curr--;
+                os++;
+            } 
+
+            if(curr>omax){
+                left=st;
+                right=en;
+                omax=curr;
+            }else if(curr<0){
+                st=en+1;
+                curr=0;
+            }
+
+            en++;
+        }
+
+       if(zs==0) return new int[0];
+
+        return new int[]{left+1,right+1};
+    }
+
+
 }
+
+
